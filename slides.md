@@ -5,25 +5,25 @@ class: text-center
 highlighter: shiki
 ---
 
-# 字体渲染编年史
+# 地狱难度的文字渲染
 
 ---
 layout: intro
 ---
 
-## 为什么要研究字体渲染
+## 为什么要研究文字渲染
 
 <br/>
 
 * 页面上最多的元素是文字。
-* 当你要自己实现渲染引擎的时候，字体渲染可能是引擎最复杂的部分。
-* 细节非常多，世界上没有完美的字体渲染和排版系统。
+* 当你要自己实现渲染引擎的时候，文字渲染可能是引擎最复杂的部分。
+* 细节非常多，世界上没有完美的文字渲染和排版系统。
 
 ---
 layout: intro
 ---
 
-## 字体渲染流程
+## 文字渲染流程
 
 <div class="text-base pt-6 flex-grow flex justify-center">
 
@@ -287,7 +287,7 @@ iPhone X<span style="font-variant-caps: all-small-caps;">R</span> 的 <span styl
 
 ---
 
-# 字体功能 · 繁体
+# 字体功能 · 简繁转换
 
 <br/>
 
@@ -587,4 +587,6 @@ layout: intro
 4. 调用 [ICU](http://site.icu-project.org/) 搭配自己写的算法，对文字进行排版。
 5. 调用 [FreeType](https://www.freetype.org/) 把字形渲染成图像，放到排版对应位置。
 6. 合成最终画面
+
+但实际的浏览器渲染引擎还需要实现 双击文字分词、双向文本混排、对齐方式（居中对齐，左右对齐）...
 
