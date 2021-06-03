@@ -15,7 +15,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run build
+      run: npm run build -- --base "/$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')/"
     - name: Deploy github page
       run: |
         mkdir ./deploy-gh-page

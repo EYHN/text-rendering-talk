@@ -8,8 +8,7 @@
   "dependencies": {
     "@slidev/cli": "^0.16.0",
     "@slidev/theme-default": "*",
-    "@slidev/theme-seriph": "*",
-    "playwright-chromium": "^1.11.1"
+    "@slidev/theme-seriph": "*"
   },
   "name": "tech-talk"
 }
