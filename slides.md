@@ -380,7 +380,7 @@ while (ch = nextChar()) {
 
 ---
 
-# 文字塑性 (text shaping)
+# 文字塑形 (text shaping)
 
 <div></div>
 
