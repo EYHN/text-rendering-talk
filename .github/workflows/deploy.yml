@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: Install dependencies
+      run: npm ci
+    - name: Build
+      run: npm run build
+    - name: Deploy github page
+      run: |
+        mkdir ./deploy-gh-page
+        cp -rf ./dist/* ./deploy-gh-page
+        cd ./deploy-gh-page
+        git init
+        git config --global push.default matching
+        git config --global user.email "cneyhn@gmail.com"
+        git config --global user.name "eyhn"
+        git add --all .
+        git commit -m "Auto deploy github page - `date`"
+        git branch -m main
+        git push --quiet --force https://eyhn:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main:gh-page
