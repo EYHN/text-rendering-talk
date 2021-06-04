@@ -1,6 +1,5 @@
 ---
 theme: seriph
-background: https://raw.githubusercontent.com/EYHN/text-rendering-talk/main/image/cover2.jpg
 class: text-center
 highlighter: shiki
 ---
