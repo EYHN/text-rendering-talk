@@ -6,7 +6,6 @@ highlighter: shiki
 
 # 地狱难度的文字渲染
 
-
 ---
 layout: intro
 ---
@@ -70,7 +69,7 @@ layout: intro
 - 矢量字体
 
 ---
-layout: intro
+layout: cover
 ---
 
 # 点阵字体
@@ -79,13 +78,15 @@ layout: intro
 
 # 世界上第一款中文字体
 
-<div class="flex h-110">
-<div class="flex flex-col w-4/10">
+<div class="flex h-100">
+<div class="flex flex-col w-4/12">
 <img class="p-1 flex-grow h-1 object-cover" src="/image/apple-font-1.png" />
 <img class="p-1 flex-grow h-1 object-cover" src="/image/apple-font-2.png" />
 </div>
-<img class="p-1 w-6/10 object-cover" src="/image/apple-font-3.png">
+<img class="p-1 w-6/12 object-cover" src="/image/apple-font-3.png">
 </div>
+
+[Behind the painstaking process of creating Chinese computer fonts](https://www.technologyreview.com/2021/05/31/1025599/history-first-chinese-digital-computer-fonts/?utm_term=Autofeed&utm_campaign=site_visitor.unpaid.engagement&utm_medium=tr_social&utm_source=Twitter#Echobox=1622468434)
 
 ---
 
