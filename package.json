@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "slidev --open",
-    "build": "slidev build && cp dist/index.html dist/404.html",
+    "build": "slidev build",
     "export": "slidev export"
   },
   "dependencies": {
