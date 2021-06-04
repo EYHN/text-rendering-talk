@@ -20,3 +20,7 @@
   font-stretch: 35% 100%;
   font-display: swap;
 }
+
+.slidev-global-top {
+  pointer-events: none;
+}

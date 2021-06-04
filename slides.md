@@ -281,7 +281,7 @@ layout: intro
 Width
 </p>
 
-<input oninput="document.getElementById('variable-fonts').style.setProperty('--text-axis', this.value)" class="pb-10" type="range" value="625" id="text-axis" min="300" max="900" />
+<input oninput="document.getElementById('variable-fonts').style.setProperty('--text-axis', this.value)" class="mb-10" type="range" value="625" id="text-axis" min="300" max="900" />
 
 ``` css
 font-variation-settings: 'wght' var(--text-axis);
@@ -412,7 +412,7 @@ while (ch = nextChar()) {
 layout: intro
 ---
 
-# 文字塑性
+# 文字塑形
 
 ---
 
@@ -440,16 +440,16 @@ layout: intro
 
 <div></div>
 
-从找到文本中每个字所对应的字形，这个过程就叫文字塑性。
+从找到文本中每个字所对应的字形，这个过程就叫文字塑形。
 
-OpenType 有一份[文字塑性规范文档](https://github.com/n8willis/opentype-shaping-documents)，非常复杂，里面针对一些小语种有额外的处理规则。
+OpenType 有一份[文字塑形规范文档](https://github.com/n8willis/opentype-shaping-documents)，非常复杂，里面针对一些小语种有额外的处理规则。
 
 文字塑形非常复杂，必须得用一个塑形库。
 # [HarfBuzz](https://harfbuzz.github.io/)
 
 <div></div>
 
-HarfBuzz 是一个文字塑性库，只需要输入一个字体和一串 Unicode 字符串就可以得到对应的正确排列的字形序列和对应字形应该放置的位置。
+HarfBuzz 是一个文字塑形库，只需要输入一个字体和一串 Unicode 字符串就可以得到对应的正确排列的字形序列和对应字形应该放置的位置。
 
 HarfBuzz 被用于 Firefox，GNOME，ChromeOS，Chrome，LibreOffice，XeTeX，Android 和 KDE 等。
 
