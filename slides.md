@@ -7,17 +7,35 @@ highlighter: shiki
 
 # 地狱难度的文字渲染
 
+
 ---
 layout: intro
 ---
+# 文字渲染有多难
 
-## 为什么要研究文字渲染
+<div></div>
+
+从计算机有屏幕开始，在终端、软件、文档或网页中，文字都是界面中最基本的构成之一。能够正确的显示用户提供的任意文本是最基本的需求。
+
+但就是这最基本的需求，实际上没有任何系统可以真正“完美”的显示文本，正确的渲染文字非常困难。
+
+---
+
+# 为什么要研究文字渲染
 
 <br/>
 
-* 页面上最多的元素是文字。
-* 当你要自己实现渲染引擎的时候，文字渲染可能是引擎最复杂的部分。
-* 细节非常多，世界上没有完美的文字渲染和排版系统。
+* **文字很重要** 
+
+  页面上最多的元素是文字。
+
+* **实现自渲染** 
+
+  为了跨平台今天有很多独立于操作系统的渲染引擎（Flutter），如果你要实现一个渲染引擎，文字渲染可能是引擎最复杂的部分。
+
+* **字体技术在发展** 
+
+  近些年字体和 [CSS Text Module](https://www.w3.org/TR/css-text-3/) 发展迅速，我们将有机会在浏览器中控制到文字渲染的细节，这需要我们理解文字渲染的原理。
 
 ---
 layout: intro
@@ -46,18 +64,11 @@ layout: intro
 
 # 字体
 
-## 类型
+## 渲染类型
 <br/>
 
-- 点阵字体
+- 点阵字体（位图字体）
 - 矢量字体
-
-## 格式
-<br/>
-
-- ttf
-- otf
-- woff
 
 ---
 layout: intro
@@ -188,41 +199,26 @@ layout: intro
 
 ---
 
-# PostScript
+# 字体
 
-<div></div>
+## 文件格式
+<br/>
 
-PostScript 是一种页面描述语言，能够描述页面上的文本和图形。由 Adobe 于 1984 年开发，最初是为了打印机而开发的。
+- TrueType（ttf）
+- OpenType（otf）
+- WebFont（woff1/2）
 
-PostScript 最初由 Apple 打印机支持，一路到 1990 年代几乎成为了打印机的标配，后面被 Adobe 自己的 PDF 所取代。（但 PDF 其实只是 PostScript 的阉割版
+<br/>
 
-PostScript 的概念与 SVG 很相似：
-
-<div class="flex flex-row">
-
-<div class="w-1/2 p-4">
-
-### PostScript
-
+```css
+@font-face {
+  font-family: bodytext;
+  src: url(sans-serif.woff2) format("woff2"),
+       url(sans-serif.woff) format("woff"),
+       url(sans-serif.otf) format("opentype"),
+       url(sans-serif.ttf) format("truetype");
+}
 ```
-newpath
-15 25 moveto
-70 90 lineto
-stroke
-```
-
-</div>
-<div class="w-1/2 p-4">
-
-### SVG
-
-```
-<path d="M 40 20 L 80 20"
-      stroke="black" fill="none"/>
-```
-
-</div>
-</div>
 
 ---
 
@@ -230,21 +226,22 @@ stroke
 
 <div></div>
 
-为了让 MacOS 用上矢量字体，Apple 在 1991 年开发的字体格式 `TrueType`。
-
 `TrueType` 的文件后缀是 `.ttf`，Windows 上的字体基本上都是 `TrueType` 格式。
 
 一个 `TrueType` 文件可以同时包含点阵字体和矢量字体，并且允许开发者根据不同的字体大小调用不同的字形。
 
-`TrueType` 中的矢量字体由一系列直线或二次贝塞尔曲线构成，而 `PostScript` 使用的是三次贝塞尔曲线，因此理论上 `TrueType` 不如 `PostScript` 精确。
+<div class="flex flex-row flex-wrap">
 
-<div class="flex flex-row">
-<div class="w-1/2 p-4">
-<img src="/image/二次贝塞尔曲线.gif" />
+<div class="w-1/2 pb-5 flex flex-col items-center">
+<img src="/image/windows-truetype.png" />
+<span class="text-sm text-gray-400 pt-2">Windows 内置字体大多是 TrueType 格式。</span>
 </div>
-<div class="w-1/2 p-4">
-<img src="/image/三次贝塞尔曲线.gif" />
+
+<div class="w-1/2 pb-5 flex flex-col items-center">
+<img class="h-50" src="/image/点阵字体分界线.png" />
+<span class="text-sm text-gray-400 pt-2">根据不同的字体大小调用不同的字形</span>
 </div>
+
 </div>
 
 ---
@@ -253,37 +250,42 @@ stroke
 
 <div></div>
 
-在 1996 年，Adobe 发现 Apple 的 `TureType` 很成功，于是与微软联合开发了一种新的字体格式 `OpenType`。
+`OpenType` 也可以叫做 `TrueType2.0`, 和 `TrueType` 大部分定义都是一样的，`OpenType` 的国际化功能比 `TrueType` 强大。
 
-`OpenType` 也可以叫做 `TrueType2.0`, 和 `TrueType` 大部分定义都是一样的，`OpenType` 能够使用 `PostScript` 字体格式，功能比 `TrueType` 更强一些。
+`OpenType` 的文件后缀是 `.otf`, 目前的 `OpenType` 已经成为 `ISO` 的公开标准。
 
-`OpenType` 的文件后缀是 `.otf`, 目前的 `OpenType` 已经成为 `ISO` 的公开标准。是目前最受欢迎的字体格式。
+<div class="flex flex-row flex-wrap">
 
----
+<div class="w-1/2 pb-5 flex flex-col items-center">
+<img class="h-50" src="/image/可变字体.png" />
+<span class="text-sm text-gray-400 pt-2">OpenType 可变字体</span>
+</div>
 
-# WOFF 字体
-
-<div></div>
-
-WOFF 是一种专为网页设计的字体格式标准，由 W3C 标准化，现在已经是推荐标准。
-
-WOFF 与其说是一种字体格式，实际上只是一种容器格式，WOFF 只是将 `TrueType` 或 `OpenType` 字体（这 2 种字体数据格式几乎一样）重新打包并压缩而已。
-
-WOFF 体积比不压缩的字体格式要小得多，便于在网页中使用。 WOFF 1.0 采用 `gzip` 压缩一般可以压缩 40%，WOFF 2.0 使用 `Brotli` 压缩体积还要小 30%。
-
----
-
-<h1>字体功能 <span v-click>· 小型大写字母</span></h1>
-
-<div></div>
-
-<img src="/image/iPhoneXR.png"/>
-
-<div v-after>
-
-iPhone X<span style="font-variant-caps: all-small-caps;">R</span> 的 <span style="font-variant-caps: all-small-caps;">R</span> 明显比较小，但他依然是大写的。这不是简单的缩放，Apple 使用了 css 设置了 `font-variant-caps: all-small-caps;`，调用了字体的小型大写字母功能，在支持的字体中会有单独设计的字形。
+<div class="w-1/2 pb-5 flex flex-col items-center">
+<div class="text-5xl pb-4">
+द् + ध् + र् + य = द्ध्र्य
+</div>
+<span class="text-sm text-gray-400 pt-2">OpenType 连字功能</span>
+</div>
 
 </div>
+
+---
+
+
+# 字体功能 · 可变字体
+
+<br/>
+
+<p id="variable-fonts" style="font-size: 5em; line-height: 1; font-family: 'Amstelvar VF'; font-variation-settings: 'wght' var(--text-axis);">
+Width
+</p>
+
+<input oninput="document.getElementById('variable-fonts').style.setProperty('--text-axis', this.value)" class="pb-10" type="range" value="625" id="text-axis" min="300" max="900" />
+
+``` css
+font-variation-settings: 'wght' var(--text-axis);
+```
 
 ---
 
@@ -297,8 +299,8 @@ iPhone X<span style="font-variant-caps: all-small-caps;">R</span> 的 <span styl
 ```css
 font-feature-settings: 'trad';
 ```
----
 
+---
 
 # 字体功能 · 半角标点
 
@@ -342,9 +344,37 @@ font-feature-settings: 'liga' 0; /* 关闭连字 */
 
 ---
 
+<h1>字体功能 <span v-click>· 小型大写字母</span></h1>
+
+<div></div>
+
+<img src="/image/iPhoneXR.png"/>
+
+<div v-after>
+
+iPhone X<span style="font-variant-caps: all-small-caps;">R</span> 的 <span style="font-variant-caps: all-small-caps;">R</span> 明显比较小，但他依然是大写的。这不是简单的缩放，Apple 使用了 css 设置了 `font-variant-caps: all-small-caps;`，调用了字体的小型大写字母功能，在支持的字体中会有单独设计的字形。
+
+<img src="/image/iPhoneXR-debug.png" style="position: absolute;right: 30px;width: 400px;top: 30%;" />
+
+</div>
+
+---
+
+# WOFF 字体
+
+<div></div>
+
+WOFF 是一种专为网页设计的字体格式标准，由 W3C 标准化，现在已经是推荐标准。
+
+WOFF 与其说是一种字体格式，实际上只是一种容器格式，WOFF 只是将 `TrueType` 或 `OpenType` 字体（这 2 种字体数据格式几乎一样）重新打包并压缩而已。
+
+WOFF 体积比不压缩的字体格式要小得多，便于在网页中使用。 WOFF 1.0 采用 `gzip` 压缩一般可以压缩 40%，WOFF 2.0 使用 `Brotli` 压缩体积还要小 30%。
+
+---
+
 # 字体管理器
 
-字体管理器通常由操作系统提供，用于管理系统字体。
+应用程序通常使用字体管理器获取字体，字体管理器通常由操作系统提供，用于管理系统字体。
 
 * Windows: DirectWrite
 * MacOS / iOS: CoreText
@@ -379,26 +409,51 @@ while (ch = nextChar()) {
 ```
 
 ---
+layout: intro
+---
+
+# 文字塑性
+
+---
+
+# 文字不是单个字符
+
+<div></div>
+
+在英语和中文里每个字符就是一个字，但有些语言完全依赖连字。
+
+例如：
+
+<p style="font-size: 5em; line-height: 1;">ड्ड بسم</p>
+
+拆开来单个字符是
+
+<p style="font-size: 5em; line-height: 1;">ड् ड ب س م</p>
+
+<br/>
+
+**结论：字符的形状取决于它周围的字符！**
+
+---
 
 # 文字塑形 (text shaping)
 
 <div></div>
 
-从字体文件中找到文本中每个字所对应的字形，这个过程就叫文字塑性。
+从找到文本中每个字所对应的字形，这个过程就叫文字塑性。
 
 OpenType 有一份[文字塑性规范文档](https://github.com/n8willis/opentype-shaping-documents)，非常复杂，里面针对一些小语种有额外的处理规则。
 
----
-
+文字塑形非常复杂，必须得用一个塑形库。
 # [HarfBuzz](https://harfbuzz.github.io/)
 
 <div></div>
 
-HarfBuzz 是一个文字塑性库，只需要输入一个字体和一串 Unicode 字符串就可以得到对应的正确排列的字形序列和对应字形应该放置的位置。期间会根据规范处理复杂的布局规则，重新排序和定位等操作。
+HarfBuzz 是一个文字塑性库，只需要输入一个字体和一串 Unicode 字符串就可以得到对应的正确排列的字形序列和对应字形应该放置的位置。
 
 HarfBuzz 被用于 Firefox，GNOME，ChromeOS，Chrome，LibreOffice，XeTeX，Android 和 KDE 等。
 
-<img src="/image/HarfBuzz.png" class="w-50" />
+<img src="/image/HarfBuzz.png" class="w-40" />
 
 ---
 layout: fact
@@ -439,7 +494,28 @@ Unicode 定义了一堆换行规则 [(UAX #14)](http://unicode.org/reports/tr14/
 * 数字的小数点`.`和负号`-`，百分号`%`，或表示单位的`$``¥`等。
 * ...
 
-这里推荐使用开源库 [ICU](http://site.icu-project.org/) 处理。
+---
+
+# 高级排版
+
+<div></div>
+
+大多数文字都是从左到右的书写习惯，少数文字是从右到左的书写方式比如阿拉伯文希伯来文。
+
+当字符串中出现混合的阿拉伯文、英文字母、数字以及标点符号就需要使用 [Unicode 双向算法](https://unicode.org/reports/tr9/) 对文字进行重新排序。
+
+比如一段电话号码：
+
+<p style="font-size: 2em; line-height: 1;">‎(+86)138-3456-1000</p>
+
+当我们在电话号码前面加一段阿拉伯语ولدت整个电话号码都会被重新排序：
+
+<p style="font-size: 2em; line-height: 1;">‎ولدت (+86)138-3456-1000</p>
+
+<br/>
+<br/>
+
+由于规则过于复杂，这里推荐使用开源库 [ICU](http://site.icu-project.org/) 进行处理。
 
 ---
 layout: cover
@@ -457,7 +533,8 @@ layout: cover
 
 <img src="/image/栅格化.png" />
 
----
+<br/>
+<br/>
 
 # [FreeType](https://www.freetype.org/)
 
@@ -545,15 +622,13 @@ hinting 实际上是内置于字体中的一段程序，栅格化的时候会被
 
 ---
 
-想象字体放大动画的应用场景：
-
 移动端浏览器上两指缩放，可以放大网页。所有文字也随之放大。
 
 经过观察所有 Android 浏览器在快速放大时，文字会出现模糊现象。怀疑是在放大过程，只是通过插值将图像放大，并没有重新渲染。
 
 但 iOS 没有观察到模糊现象。
 
-<img class="h-50" src="/image/pinch-zoom.png">
+<img class="h-50" style="display: inline;" src="/image/android-blur.png"> <img class="h-50" style="display: inline;" src="/image/pinch-zoom.png">
 
 ---
 
@@ -561,13 +636,13 @@ hinting 实际上是内置于字体中的一段程序，栅格化的时候会被
 
 <div></div>
 
-`MacOS` 和 `iOS` 应用程序使用 `Apple CoreText API` 来绘制字形，底层是一个叫作 `Quartz 2D` 的图像引擎，`Quartz 2D` 将整个屏幕视为一个 `PostScript` 画布，所有的文字和线条都会转化为 `PostScript`。
+`MacOS` 和 `iOS` 应用程序使用 `Apple CoreText API` 来绘制字形，底层是一个叫作 `Quartz 2D` 的图像引擎。
 
-应用程序不需要自己做栅格化，`Quartz 2D` 会统一栅格化，`Quartz 2D` 栅格化速度非常快，动画也能非常流畅。
+应用程序不需要自己做栅格化，而是将矢量图像返回给 `Quartz 2D` 统一栅格化，`Quartz 2D` 栅格化速度非常快，动画也能非常流畅。
 
 在 `Mac` 和 `iPhone` 上 `Safari` 浏览器中运行上面的文字放大测试，均能流畅 60 帧。
 
-在 `MacOS` 上的 `Chrome` 和 `Firefox` 中运行还是很卡，是因为他们的绘图还是为传统渲染引擎设计的，没有利用好 `Quartz 2D` 的能力。
+[Quartz 2D Graphics for Mac OS X Developers](https://flylib.com/books/en/3.310.1/)
 
 ---
 layout: intro
@@ -588,5 +663,16 @@ layout: intro
 5. 调用 [FreeType](https://www.freetype.org/) 把字形渲染成图像，放到排版对应位置。
 6. 合成最终画面
 
-但实际的浏览器渲染引擎还需要实现 emoji、双击文字分词、双向文本混排、对齐方式（居中对齐，左右对齐）...
+---
 
+<span style="font-size: 5em; line-height: 1.4; color: rgba(0,0,0,0.5);">मनीष منش</span>
+
+<div style="font-size: 5em; line-height: 1.4;">
+  <span style="color:red">ا</span><span style="color:green">ل</span><span style="color:blue">ل</span><span style="color:orange">ه</span>
+</div>
+
+<div style="font-size: 25px; line-height: 1.4">
+<span style="writing-mode: vertical-lr">oh hey what?</span>
+<span style="writing-mode: vertical-lr">oh <span style="color:#8A2BE2">لا بسم الله</span> no</span>
+<span style="writing-mode:vertical-rl">你好<span style="text-combine-upright:all; color:red">1234</span>你好</span>
+</div>

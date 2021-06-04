@@ -2,13 +2,13 @@
   "private": true,
   "scripts": {
     "dev": "slidev --open",
-    "build": "slidev build",
+    "build": "slidev build && cp dist/index.html dist/404.html",
     "export": "slidev export"
   },
   "dependencies": {
-    "@slidev/cli": "^0.16.0",
-    "@slidev/theme-default": "*",
-    "@slidev/theme-seriph": "*"
+    "@slidev/cli": "^0.17.0",
+    "@slidev/theme-default": "^0.17.0",
+    "@slidev/theme-seriph": "^0.17.0"
   },
   "name": "tech-talk"
 }

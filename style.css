@@ -1,12 +1,22 @@
-@font-face { 
-    font-family: of-sf-pro-display;
-    src: url("/fonts/sf-pro-display-bold.woff2") format("woff2");
-    font-style: normal;
-    font-weight: 700;
+@font-face {
+  font-family: of-sf-pro-display;
+  src: url("/fonts/sf-pro-display-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
 }
 
-@font-face { 
-    font-family: kozuka-mincho-pr6n-1; src: url("/fonts/KozMinPr6N-Heavy.otf") format("opentype");
-    font-style: normal; 
-    font-weight: 400;
+@font-face {
+  font-family: kozuka-mincho-pr6n-1;
+  src: url("/fonts/KozMinPr6N-Heavy.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Amstelvar VF";
+  src: url("fonts/AmstelvarAlpha-VF.woff2") format("woff2-variations");
+  font-style: normal;
+  font-weight: 300 900;
+  font-stretch: 35% 100%;
+  font-display: swap;
 }
